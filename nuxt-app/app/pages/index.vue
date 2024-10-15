@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const config = useRuntimeConfig()
+const base_url = import.meta.env.VITE_BASE_URL
 const router = useRouter();
 
 const goToDocument = () => {
@@ -10,7 +10,7 @@ const goToDocument = () => {
 <template>
     <div>
         <h2 class="text-red-600">Home page</h2>
-        <p>url:: {{ config.public.baseUrl }}</p>
+        <p>url:: {{ base_url }}</p>
 
         <div class="mt-10">
             <button class="border p-2 bg-white shadow" @click="goToDocument"> Go to Documents</button>
