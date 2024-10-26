@@ -28,7 +28,30 @@ export default defineNuxtConfig({
   },
   // ssr: false,
   // imports: {
-  //   autoImport: false,
+  //   autoImport: false,fa
   // },
-  modules: ["@nuxt/image"],
+  image: {
+    dir: "assets/images",
+  },
+  i18n: {
+    lazy: true,
+    langDir: "locales",
+    strategy: "prefix_except_default",
+    defaultLocale: "en",
+    locales: [
+      {
+        code: "en",
+        name: "English",
+        language: "en-US",
+        file: "en.json",
+      },
+      {
+        code: "bn",
+        name: "বাংলা",
+        language: "bn-BD",
+        file: "bn.json",
+      },
+    ],
+  },
+  modules: ["@nuxt/image", "@nuxt/icon", "@vee-validate/nuxt", "@nuxtjs/i18n"],
 });

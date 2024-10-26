@@ -1,6 +1,13 @@
 <script setup lang="ts">
-// import { Icon } from "@iconify/vue";
-import nuxtLogo from './assets/images/nuxt-logo.png'
+const { locale, locales } = useI18n();
+const switchLocalePath = useSwitchLocalePath();
+const localePath = useLocalePath()
+const availableLocales = computed(() => {
+  return locales.value.filter((i) => i.code !== locale.value);
+});
+
+console.log("locale::", locale.value);
+
 const navLinks = [
   { id: 1, path: "/", label: "Home" },
   { id: 2, path: "/about", label: "About" },
@@ -11,16 +18,24 @@ const navLinks = [
 
 <template>
   <nav class="h-20 border flex items-center shadow">
-    <div class="pl-10 uppercase font-semibold !text-green-700">
-      <!-- <Icon class="text-2xl" icon="lucide:home" /> -->
-       <!-- <NuxtImg :src="nuxtLogo" width="80"/> -->
-        nuxt app
+    <div class="pl-10 uppercase font-semibold !text-green-700">nuxt app</div>
+    <div class="flex justify-between w-full">
+      <ul class="flex gap-6 pl-16">
+        <li v-for="link in navLinks" :key="link.id">
+          <NuxtLink :to="localePath(link.path)">{{ link.label }}</NuxtLink>
+        </li>
+      </ul>
+
+      <div>
+        <NuxtLink
+          v-for="locale in availableLocales"
+          :key="locale.code"
+          :to="switchLocalePath(locale.code)"
+        >
+          {{ locale.name }}
+        </NuxtLink>
+      </div>
     </div>
-    <ul class="flex gap-6 pl-16">
-      <li v-for="link in navLinks" :key="link.id">
-        <NuxtLink :to="link.path">{{ link.label }}</NuxtLink>
-      </li>
-    </ul>
   </nav>
 </template>
 
